@@ -19,12 +19,12 @@ export const createProductValidationMiddleware = (req: Request, res: Response, n
 
 export const getProductValidationMiddleware = (req: Request, res: Response, next: NextFunction) => {
     const schema = Joi.object({
-        page: Joi.number().min(0).when('search', { 
+        page: Joi.number().min(0).when('search', {
             is: Joi.exist(),
             then: Joi.optional(),
             otherwise: Joi.required()
         }),
-        size: Joi.number().min(5).max(10).when('search', { 
+        size: Joi.number().min(5).max(10).when('search', {
             is: Joi.exist(),
             then: Joi.optional(),
             otherwise: Joi.required()
@@ -45,15 +45,15 @@ export const getProductValidationMiddleware = (req: Request, res: Response, next
 }
 
 export const productByIdValidationMiddleware = (req: Request, res: Response, next: NextFunction) => {
-  const schema = Joi.object({
-    productId: Joi.string().length(24).hex().required() // Validate productId as a hexadecimal string of length 24 (MongoDB ObjectId)
-  });
-  const { error } = schema.validate({ productId: req.params.productId });
-  if (error) {
-    return res.status(400).json({ error: error.details.map((err) => err.message) });
-  }
+    const schema = Joi.object({
+        productId: Joi.string().length(24).hex().required() // Validate productId as a hexadecimal string of length 24 (MongoDB ObjectId)
+    });
+    const { error } = schema.validate({ productId: req.params.productId });
+    if (error) {
+        return res.status(400).json({ error: error.details.map((err) => err.message) });
+    }
 
-  next();
+    next();
 };
 
 

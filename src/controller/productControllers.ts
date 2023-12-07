@@ -5,7 +5,6 @@ const productService = new ProductService();
 
 class ProductController {
   async createProduct(req: Request, res: Response) {
-    console.log("==========================>>>>>")
     try {
       const { name, description, price, stock } = req.body;
 
@@ -23,9 +22,7 @@ class ProductController {
 
   async getAllProducts(req: Request, res: Response) {
     try {
-      console.log("==================111")
       const { page, size, search, sortKey, sortOrder } = req.body
-
       const products = await productService.getAllProducts(page, size, search, sortKey, sortOrder);
       return res.status(200).json({ status: 200, message: 'success', data: products });
     } catch (error) {
@@ -81,9 +78,9 @@ class ProductController {
   async addReview(req: Request, res: Response) {
     try {
       const { productId, rating, remarks } = req.body;
-const {username}=req;
-     const data= await productService.addReview(productId, rating, remarks,username);
-      return res.status(200).json({ status: 200, message: 'success',data });
+      const { username } = req;
+      const data = await productService.addReview(productId, rating, remarks, username);
+      return res.status(200).json({ status: 200, message: 'success', data });
     } catch (error) {
       let errorMessage = 'Failed to add review  product';
       if (error instanceof Error) {

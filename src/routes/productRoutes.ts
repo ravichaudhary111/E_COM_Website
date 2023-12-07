@@ -43,7 +43,7 @@ router
     productController.deleteProduct);
 
 router
-  .post('/addReview', 
+  .post('/addReview',
     AddReviewValidationMiddleware,
     productController.addReview);
 

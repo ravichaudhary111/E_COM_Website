@@ -79,12 +79,12 @@ class UserService {
       if (!passwordMatch) {
         throw new Error('Invalid credentials');
       }
-
+      const JWT_SECRET = process.env.SECRET_KEY || "jkdsess";
       const token = jwt.sign({
         userId: user._id,
         role: user.role,
         username: user.username
-      }, 'your_secret_key', { expiresIn: '1h' });
+      }, JWT_SECRET, { expiresIn: '1h' });
 
       // Create a new object with user properties and 'token'
       const userWithToken: IUserWithToken = {

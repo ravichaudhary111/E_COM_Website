@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 
 // Define your secret key for JWT
-const JWT_SECRET = 'your_secret_key'; // Replace with your actual secret key
+const JWT_SECRET = process.env.SECRET_KEY || "jkdsess"; // Replace with your actual secret key
 
 // Extend the Request type to include a userId property
 declare global {

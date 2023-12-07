@@ -1,6 +1,5 @@
-import express, { Application,Express, Request, Response, NextFunction } from 'express';
+import express, { Application, Express, Request, Response, NextFunction } from 'express';
 import connectDB from './config/database';
-import { swaggerSetup } from './swaggerConfig';
 import { authMiddleware } from './middlewares/authMiddleware/authMiddleware';
 
 
@@ -20,11 +19,8 @@ connectDB();
 // Middleware for JSON parsing
 app.use(express.json());
 app.use("/api/products", authMiddleware);
-app.use("/api/orders", authMiddleware );
+app.use("/api/orders", authMiddleware);
 
-// // Set up Swagger
-// const res = swaggerSetup(app);
-// // Define routes
 app.use('/api/products', productRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/orders', orderRoutes);
