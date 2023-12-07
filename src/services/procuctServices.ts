@@ -49,30 +49,30 @@ class ProductService {
       }
 
       let products = await Product.aggregate<any>(pipeline);
-      console.log("======",products)
+      console.log("======", products)
       if (products && products.length) {
         products = this.calculateAvgRatings(products);
       }
 
       return products;
     } catch (error) {
-    //   throw new Error('Error fetching products');
-    // }
-    console.log("error", error);
-    if (error instanceof Error) {
-      throw new Error(error.message); // Throw the specific error message received
-    } else {
-      throw new Error('Error fetching products');
+      //   throw new Error('Error fetching products');
+      // }
+      console.log("error", error);
+      if (error instanceof Error) {
+        throw new Error(error.message); // Throw the specific error message received
+      } else {
+        throw new Error('Error fetching products');
+      }
     }
-  }
   }
 
   private calculateAvgRatings(products: any[]): any[] {
     return products.map(product => {
       const ratings = product.ratings;
       if (ratings && ratings.length > 0) {
-        const totalRating = ratings.reduce((total: number, val: { rating: number, review: string ,username:String}) =>
-         total + val.rating, 0);
+        const totalRating = ratings.reduce((total: number, val: { rating: number, review: string, username: String }) =>
+          total + val.rating, 0);
         const avgRating = totalRating / ratings.length;
         return { ...product, avgRating }; // Include the average rating in the product object
       }
@@ -103,8 +103,8 @@ class ProductService {
 
     if (ratings && ratings.length > 0) {
 
-      const totalRating = ratings.reduce((total:number, val:{rating:number,review:string,username:String}) =>
-       total + val.rating, 0);
+      const totalRating = ratings.reduce((total: number, val: { rating: number, review: string, username: String }) =>
+        total + val.rating, 0);
       const avgRating = totalRating / ratings.length;
       delete product.ratings;
       return { ...product.toObject(), avgRating }; // Include the average rating in the product object
@@ -159,8 +159,5 @@ class ProductService {
       })
   }
 }
-
-
-//rating api remaining
 
 export default ProductService;

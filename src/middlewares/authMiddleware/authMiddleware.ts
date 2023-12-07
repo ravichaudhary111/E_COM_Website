@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 
 // Define your secret key for JWT
-const JWT_SECRET = 'your_secret_key'; // Replace with your actual secret key
+const JWT_SECRET  = process.env.JWT_SECRET_KEY || "gddhddhw22"; // Replace with your actual secret key
 
 // Extend the Request type to include a userId property
 declare global {
@@ -11,7 +11,6 @@ declare global {
             userId?: string;
             role?: String;
             username: String;
-             // Define the userId property
         }
     }
 }
@@ -33,8 +32,7 @@ export const authMiddleware = (req: Request, res: Response, next: NextFunction) 
        // console.log("========token==1111=======",decoded)
         req.username=decoded.username
         req.userId = decoded.userId;
-        req.role = decoded.role // Add userId to the request object for further middleware or routes
-       // console.log("222222222222",req.role )
+        req.role = decoded.role 
         next(); // Proceed to the next middleware or route
     } catch (error) {
         return res.status(401).json({ message: 'Invalid token' });
