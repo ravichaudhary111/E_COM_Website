@@ -38,7 +38,7 @@ class OrderController {
   async updateOrderStatus(req: Request, res: Response) {
     try {
       const { orderId, status } = req.body;
-      console.log("status22", status)
+      console.log("status22",status)
 
       const updatedOrder = await orderService.updateOrderStatus(orderId, status);
       return res.status(200).json({ status: 200, message: 'success', data: updatedOrder });

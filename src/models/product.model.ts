@@ -4,7 +4,7 @@ import { Model, Document, Schema, model } from 'mongoose';
 export interface IRating {
   rating: number;
   remarks: string;
-  username: string;
+  username:string;
   // Add more fields as needed
 }
 
@@ -24,7 +24,7 @@ const productSchema: Schema<IProduct> = new Schema({
   description: { type: String, required: true },
   price: { type: Number, required: true },
   stock: { type: Number, required: true },
-  ratings: [{ rating: { type: Number }, remarks: { type: String }, username: { type: String } }],
+  ratings: [{ rating: { type: Number }, remarks: { type: String } ,username:{ type: String } }],
   // Add more fields as needed
 });
 

@@ -81,9 +81,9 @@ class ProductController {
   async addReview(req: Request, res: Response) {
     try {
       const { productId, rating, remarks } = req.body;
-      const { username } = req;
-      const data = await productService.addReview(productId, rating, remarks, username);
-      return res.status(200).json({ status: 200, message: 'success', data });
+const {username}=req;
+     const data= await productService.addReview(productId, rating, remarks,username);
+      return res.status(200).json({ status: 200, message: 'success',data });
     } catch (error) {
       let errorMessage = 'Failed to add review  product';
       if (error instanceof Error) {

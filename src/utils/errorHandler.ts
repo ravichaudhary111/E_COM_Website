@@ -3,7 +3,7 @@ import { Request, Response, NextFunction } from 'express';
 // Custom error handling middleware
 const errorHandler = (err: Error, req: Request, res: Response, next: NextFunction): void => {
   console.error(err.stack);
-
+  
   // Handling specific types of errors
   if (err instanceof CustomError) {
     res.status(err.statusCode).json({ error: err.message });

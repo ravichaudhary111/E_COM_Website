@@ -8,37 +8,37 @@ class OrderService {
     try {
       let totalAmount: number = 0;
       const productsList: { product: string; quantity: number }[] = []; // Define the structure for productsList
-
+  
       for (const productData of products) {
         const { productId, quantity } = productData;
-
+  
         const product = await Product.findOne({ _id: productId });
         if (!product) {
           throw new Error('Product not found');
         }
-
+  
         if (!product.stock || product.stock < quantity) {
           throw new Error('Insufficient stock for the product');
         }
-
+  
         const price = product.price || 0;
         totalAmount += price * quantity;
         productsList.push({ product: productId, quantity });
-
+  
         // Update remaining stock in Product collection
         product.stock -= quantity;
         await product.save();
       }
-
+  
       const newOrder = new Order({
         user: userId,
         products: productsList,
         totalAmount,
         status: 'pending',
       });
-
+  
       const savedOrder = await newOrder.save();
-
+  
       return savedOrder;
     } catch (error) {
       if (error instanceof Error) {
@@ -53,7 +53,7 @@ class OrderService {
   async getOrderHistory(userId: string) {
     try {
       const orders = await Order.find({ user: userId });
-      if (!orders || !orders.length) {
+      if(!orders || !orders.length){
         throw new Error('Order History not found');
       }
       return orders;
@@ -64,7 +64,7 @@ class OrderService {
 
   async updateOrderStatus(orderId: string, status: string) {
     try {
-      console.log("status33", status)
+      console.log("status33",status)
       const updatedOrder = await Order.findByIdAndUpdate(orderId, { status }, { new: true });
 
       if (!updatedOrder) {
